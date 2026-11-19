@@ -1,178 +1,133 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0E1A33;--navy2:#1C2B4A;--yel:#FFE16A;--red:#B3262E;--gold:#C9A227;--paper:#FBFAF6;--ink:#1A1A1A;--mute:#8A8A8A;--line:#E7E4DA}
+:root{--navy:#0E1A33;--navy2:#1C2B4A;--yel:#FFD43B;--red:#C8323A;--cream:#F6F3EC;--ink:#0E1A33;--mute:#6B7280;--line:#DAD5C8}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#ddd;font-family:Inter,sans-serif;color:var(--ink)}
-.s{width:1080px;height:1350px;background:var(--paper);position:relative;overflow:hidden;margin:20px auto;display:flex;flex-direction:column}
-.status{height:110px;display:flex;align-items:center;justify-content:space-between;padding:0 64px;font-weight:600;font-size:38px}
-.status .r{display:flex;gap:14px;align-items:center}
-.bars{display:flex;gap:5px;align-items:flex-end}.bars i{width:8px;background:var(--ink);border-radius:2px}
-.bat{width:62px;height:30px;border:3px solid var(--ink);border-radius:8px;font-size:19px;display:flex;align-items:center;justify-content:center;font-weight:700}
-.nav{height:100px;display:flex;align-items:center;justify-content:space-between;padding:0 50px;color:var(--gold);font-size:42px}
-.nav .ic{display:flex;gap:44px}.circ{width:58px;height:58px;border:4px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;letter-spacing:2px;line-height:0;padding-bottom:12px}
-.date{text-align:center;color:var(--mute);font-size:26px;margin-top:6px}
-.body{flex:1;padding:44px 80px 0}
-h1{font-size:62px;font-weight:700;line-height:1.15;letter-spacing:-1px}
-h2{font-size:54px;font-weight:700;line-height:1.15;letter-spacing:-.8px;margin-bottom:34px}
-p,li{font-size:40px;line-height:1.45}
-.hl{background:linear-gradient(transparent 12%,var(--yel) 12%,var(--yel) 92%,transparent 92%);padding:0 10px;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+body{background:#999;font-family:Inter,sans-serif}
+.s{width:1080px;height:1350px;position:relative;overflow:hidden;margin:20px auto;display:flex;flex-direction:column;padding:70px 80px 0}
+.dark{background:var(--navy);color:#fff}
+.light{background:var(--cream);color:var(--ink)}
+.dark::before{content:"";position:absolute;right:-260px;top:-260px;width:720px;height:720px;border-radius:50%;border:2px solid #ffffff14}
+.dark::after{content:"";position:absolute;right:-160px;top:-160px;width:520px;height:520px;border-radius:50%;border:2px solid #ffffff10}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:70px;position:relative;z-index:1}
+.prog{display:flex;gap:8px}.prog i{width:46px;height:8px;border-radius:4px;background:currentColor;opacity:.18}.prog i.on{opacity:1;background:var(--yel)}
+.light .prog i.on{background:var(--navy)}
+.kick{display:inline-block;background:var(--yel);color:var(--navy);font-weight:800;font-size:28px;letter-spacing:2px;padding:10px 20px;text-transform:uppercase}
+.title{font-family:'Inter Display',Inter,sans-serif;font-weight:900;letter-spacing:-2px;line-height:1.02;text-transform:uppercase}
+.bar{background:var(--yel);color:var(--navy);padding:0 16px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+p{font-size:40px;line-height:1.42}
+.dark p{color:#E6E9F0}
+.mute{color:var(--mute)!important}
+.src{font-size:25px;line-height:1.4;opacity:.65;margin-top:24px}
 .red{color:var(--red)}
-.hand{font-family:Caveat,cursive;color:var(--red);font-weight:700}
-.foot{position:absolute;left:80px;right:80px;bottom:138px;display:flex;align-items:center;justify-content:space-between}
-.tag{display:flex;align-items:center;gap:16px;font-size:30px;color:#555;font-weight:500}
-.lk{width:54px;height:54px;border-radius:50%;background:var(--navy);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;font-weight:300}
-.pg{font-size:26px;color:var(--mute);font-weight:600}
-.tool{position:absolute;bottom:0;left:0;right:0;height:120px;border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;color:var(--gold);font-size:40px}
-.home{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:300px;height:10px;border-radius:5px;background:var(--ink)}
-.src{font-size:26px;color:var(--mute);line-height:1.4;margin-top:26px}
-.chk{list-style:none}.chk li{display:flex;gap:26px;align-items:flex-start;margin-bottom:22px}
-.box{flex:none;width:52px;height:52px;border-radius:50%;border:4px solid #C8C3B5;margin-top:4px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff}
-.box.on{background:var(--gold);border-color:var(--gold)}
-.box.x{background:var(--red);border-color:var(--red)}
-.card{background:#fff;border:2px solid var(--line);border-radius:28px;padding:36px 40px}
-.navycard{background:var(--navy);color:#fff;border-radius:28px;padding:40px 44px}
-.row{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0;border-bottom:2px dashed var(--line);font-size:38px}
-.row:last-child{border:none}.row b{font-size:44px}
+.foot{position:absolute;left:80px;right:80px;bottom:60px;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:600}
+.lk{display:flex;align-items:center;gap:16px}
+.lk b{width:58px;height:58px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:26px}
+.lk small{display:block;font-size:20px;font-weight:500;opacity:.6;letter-spacing:.5px}
+.swipe{font-weight:800;letter-spacing:1px}
+.card{background:#fff;border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)}
+.ncard{background:var(--navy2);border-radius:24px;padding:36px 40px}
+.big{font-family:'Inter Display',Inter;font-weight:900;letter-spacing:-2px}
 </style></head><body>
 
-<!-- template parts injected by JS -->
-<div id="deck">
-
-<section class="s" data-n="1">
- <div class="body" style="padding-top:70px">
-  <p style="font-size:44px;color:#555;margin-bottom:26px">Lembrete pra mim mesmo:</p>
-  <h1 style="font-size:84px;line-height:1.12">Tu tá adiando<br>a decisão até<br>o juro cair?</h1>
-  <div style="margin:46px 0 40px"><span class="hl" style="font-size:66px;font-weight:800;letter-spacing:-1px">A Selic só chega<br>em 10,5% em 2029.</span></div>
-  <p style="font-size:44px">São <b>3 anos</b> parado esperando.<br>Vale a pena? Fiz a conta.</p>
-  <div class="hand" style="font-size:62px;text-align:right;margin-top:30px;transform:rotate(-3deg)">arrasta pro lado →</div>
+<section class="s dark" data-n="1">
+ <div style="position:relative;z-index:1;margin-top:40px">
+  <span class="kick">Consórcio sem mistério</span>
+  <div class="title" style="font-size:118px;margin-top:50px">Tá esperando<br>o juro cair<br>pra decidir?</div>
+  <div class="title" style="font-size:74px;margin-top:50px;line-height:1.25"><span class="bar">Selic em 10,5%</span><br><span class="bar">só em 2029.</span></div>
+  <p style="margin-top:56px;font-size:44px">São 3 anos parado. Fiz a conta<br>do que essa espera custa.</p>
  </div>
 </section>
 
-<section class="s" data-n="2">
- <div class="body">
-  <h2>📌 O que o mercado projeta pra Selic</h2>
-  <div class="card" id="chart" style="padding:44px 40px 30px">
-   <div style="display:flex;align-items:flex-end;justify-content:space-around;height:330px;border-bottom:3px solid var(--ink);gap:40px">
-    <div style="flex:1;text-align:center"><div style="font-size:46px;font-weight:800;margin-bottom:12px">13,75%</div><div style="height:240px;background:var(--navy);border-radius:16px 16px 0 0"></div></div>
-    <div style="flex:1;text-align:center"><div style="font-size:46px;font-weight:800;margin-bottom:12px">12,75%</div><div style="height:222px;background:var(--navy2);border-radius:16px 16px 0 0"></div></div>
-    <div style="flex:1;text-align:center"><div style="font-size:46px;font-weight:800;margin-bottom:12px;color:var(--red)">10,50%</div><div style="height:183px;background:var(--yel);border:3px solid var(--gold);border-bottom:none;border-radius:16px 16px 0 0"></div></div>
-   </div>
-   <div style="display:flex;justify-content:space-around;gap:40px;margin-top:18px;font-size:34px;font-weight:600;text-align:center">
-    <div style="flex:1">fim 2026</div><div style="flex:1">fim 2027<br><span style="font-size:26px;color:var(--mute);font-weight:500">era 12,50%</span></div><div style="flex:1">fim 2029<br><span style="font-size:26px;color:var(--mute);font-weight:500">era 10,25%</span></div>
-   </div>
-  </div>
-  <p style="margin-top:34px">E repara: a projeção <span class="hl"><b>subiu</b></span> em vez de cair.</p>
-  <p class="src">Fonte: Boletim Focus, Banco Central, 16/11/2026.<br>Projeções do mercado, não garantia.</p>
+<section class="s light" data-n="2">
+ <span class="kick" style="align-self:flex-start">O que diz o Focus</span>
+ <div class="title" style="font-size:80px;margin:34px 0 50px">A Selic cai.<br><span class="red">Devagar.</span></div>
+ <div style="display:flex;align-items:flex-end;gap:36px;height:420px;border-bottom:4px solid var(--navy)">
+  <div style="flex:1;text-align:center"><div class="big" style="font-size:62px;margin-bottom:14px">13,75%</div><div style="height:300px;background:var(--navy)"></div></div>
+  <div style="flex:1;text-align:center"><div class="big" style="font-size:62px;margin-bottom:14px">12,75%</div><div style="height:278px;background:var(--navy2)"></div></div>
+  <div style="flex:1;text-align:center"><div class="big red" style="font-size:62px;margin-bottom:14px">10,50%</div><div style="height:229px;background:var(--yel)"></div></div>
+ </div>
+ <div style="display:flex;gap:36px;margin-top:20px;text-align:center;font-size:32px;font-weight:700">
+  <div style="flex:1">FIM 2026</div><div style="flex:1">FIM 2027<br><span class="mute" style="font-size:24px;font-weight:500">antes: 12,50%</span></div><div style="flex:1">FIM 2029<br><span class="mute" style="font-size:24px;font-weight:500">antes: 10,25%</span></div>
+ </div>
+ <p style="margin-top:44px;font-weight:600">E a projeção ainda <span class="bar">subiu</span> nesta semana.</p>
+ <p class="src">Boletim Focus, Banco Central, 16/11/2026. Projeções de mercado, não garantia.</p>
+</section>
+
+<section class="s dark" data-n="3">
+ <div style="position:relative;z-index:1">
+ <span class="kick">O custo invisível</span>
+ <div class="title" style="font-size:96px;margin:40px 0 40px">Esperar<br>também<br>custa.</div>
+ <p>Juro alto encarece o financiamento. Mas quem fica de fora perde outra coisa:</p>
+ <div style="display:flex;align-items:baseline;gap:28px;margin:46px 0 10px">
+  <span class="big" style="font-size:200px;color:var(--yel);line-height:.9">36</span>
+  <span style="font-size:44px;font-weight:700;line-height:1.2">assembleias<br>assistidas de fora</span>
+ </div>
+ <p style="margin-top:30px;font-size:46px;font-weight:800;color:#fff">O juro pode voltar a cair.<br><span style="color:var(--yel)">O tempo não volta.</span></p>
  </div>
 </section>
 
-<section class="s" data-n="3">
- <div class="body">
-  <h2>⏳ Esperar também tem custo</h2>
-  <p style="font-size:38px">Juro alto encarece o financiamento. Mas ficar de fora também cobra:</p>
-  <div class="navycard" style="margin-top:34px;padding:34px 44px">
-   <div style="display:flex;justify-content:space-between;font-size:32px;font-weight:600;opacity:.8"><span>hoje</span><span>fim de 2029</span></div>
-   <div style="position:relative;height:60px;margin:24px 0">
-    <div style="position:absolute;top:26px;left:0;right:0;height:8px;background:#ffffff33;border-radius:4px"></div>
-    <div style="position:absolute;top:26px;left:0;right:0;display:flex;justify-content:space-between">
-     <script>document.write(Array.from({length:19},()=>'<i style="width:8px;height:8px;border-radius:50%;background:#FFE16A;display:block"></i>').join(''))</script>
-    </div>
-    <div style="position:absolute;left:0;top:10px;width:40px;height:40px;border-radius:50%;background:var(--yel)"></div>
-    <div style="position:absolute;right:0;top:10px;width:40px;height:40px;border-radius:50%;background:var(--yel)"></div>
-   </div>
-   <p style="font-size:44px;font-weight:700;line-height:1.3">~36 assembleias<br><span style="color:var(--yel)">que tu assiste de fora.</span></p>
-  </div>
-  <p style="margin-top:34px;font-size:38px">Cada mês fora do grupo é uma chance a menos de ser contemplado.</p>
-  <p class="red" style="font-weight:800;font-size:44px;margin-top:18px">O juro pode voltar a cair.<br>O tempo, não volta.</p>
+<section class="s light" data-n="4">
+ <span class="kick" style="align-self:flex-start">Como funciona</span>
+ <div class="title" style="font-size:84px;margin:34px 0 56px">Consórcio não<br>depende da<br><span class="bar">Selic</span></div>
+ <div style="display:flex;flex-direction:column;gap:22px">
+  <div class="card" style="display:flex;gap:30px;align-items:center"><span class="big red" style="font-size:64px;width:60px">✕</span><p><b>Sem juros</b> de financiamento</p></div>
+  <div class="card" style="display:flex;gap:30px;align-items:center"><span class="big" style="font-size:64px;width:60px">✓</span><p>Custo: <b>taxa de administração</b> e <b>fundo de reserva</b></p></div>
+  <div class="card" style="display:flex;gap:30px;align-items:center"><span class="big" style="font-size:64px;width:60px">✓</span><p>Tudo <b>diluído no prazo</b> do plano</p></div>
+ </div>
+ <p class="src" style="opacity:1;color:var(--mute);margin-top:34px">O reajuste anual atualiza crédito e parcela pelo índice da proposta. Está no regulamento da HS.</p>
+</section>
+
+<section class="s dark" data-n="5">
+ <div style="position:relative;z-index:1">
+ <span class="kick">A conta aberta</span>
+ <div class="title" style="font-size:90px;margin:40px 0 50px">Carta HS de<br><span style="color:var(--yel)">R$ 500 mil</span></div>
+ <div class="ncard">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:26px;border-bottom:2px solid #ffffff22"><p>Meia parcela<br><span style="font-size:28px;opacity:.7">até contemplar</span></p><span class="big" style="font-size:54px">R$ 1.397,50</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:26px"><p>36 meses<br><span style="font-size:28px;opacity:.7">até o fim de 2029</span></p><span class="big" style="font-size:54px">R$ 50.310</span></div>
+ </div>
+ <p style="margin-top:50px;font-size:46px;font-weight:700;color:#fff;line-height:1.3">~R$ 50 mil investidos aos poucos.<br><span style="color:var(--yel)">36 assembleias concorrendo.</span></p>
+ <p class="src">Tabela oficial HS, plano de 220 meses. A contemplação depende de sorteio ou lance e dos recursos do grupo.</p>
  </div>
 </section>
 
-<section class="s" data-n="4">
- <div class="body">
-  <h2>✅ Consórcio não depende da Selic</h2>
-  <ul class="chk">
-   <li><span class="box x">✕</span><span><b>Sem juros</b> de financiamento</span></li>
-   <li><span class="box on">✓</span><span>O custo é <b>taxa de administração</b> + <b>fundo de reserva</b></span></li>
-   <li><span class="box on">✓</span><span>Tudo <b>diluído no prazo</b> do plano</span></li>
-   <li><span class="box">&nbsp;</span><span style="color:var(--mute)">Ficar torcendo pelo Copom</span></li>
-  </ul>
-  <div class="card" style="margin-top:30px;background:#FFF8D9;border-color:#F1E2A0">
-   <p style="font-size:32px;line-height:1.45"><b>Importante:</b> o reajuste anual atualiza o crédito e a parcela pelo índice da proposta. Está no regulamento da HS.</p>
-  </div>
+<section class="s light" data-n="6">
+ <span class="kick" style="align-self:flex-start">Teu caixa</span>
+ <div class="title" style="font-size:84px;margin:34px 0 56px">E o teu dinheiro<br>enquanto isso?</div>
+ <div style="display:flex;gap:26px">
+  <div class="card" style="flex:1"><div style="font-size:26px;font-weight:800;letter-spacing:2px;color:var(--mute)">ESPERANDO</div><p style="margin-top:18px;font-size:36px">Junta tudo pra uma entrada grande lá na frente</p></div>
+  <div class="ncard" style="flex:1;background:var(--navy);color:#fff"><div style="font-size:26px;font-weight:800;letter-spacing:2px;color:var(--yel)">COM A CARTA</div><p style="margin-top:18px;font-size:36px;color:#fff">O capital segue aplicado onde já está</p></div>
+ </div>
+ <p style="margin-top:40px">A carta entra só com o valor que tu já investe por mês.</p>
+ <div class="title" style="font-size:58px;margin-top:36px;line-height:1.2"><span class="bar">O caixa fica inteiro.</span><br><span class="red">A carta constrói o crédito.</span></div>
+</section>
+
+<section class="s dark" data-n="7">
+ <div style="position:relative;z-index:1">
+ <span class="kick">Método API</span>
+ <div class="title" style="font-size:80px;margin:30px 0 16px">Contemplou?<br><span style="color:var(--yel)">Tu escolhe.</span></div>
+ <p style="margin-bottom:30px">Três saídas. Nenhuma espera o juro.</p>
+ <div style="display:flex;flex-direction:column;gap:22px">
+  <div class="ncard" style="display:flex;gap:34px;align-items:center;padding:22px 36px"><span class="big" style="font-size:72px;color:var(--yel);width:60px">1</span><p><b style="color:#fff">Vender a carta</b><br>com possível ágio</p></div>
+  <div class="ncard" style="display:flex;gap:34px;align-items:center;padding:22px 36px"><span class="big" style="font-size:72px;color:var(--yel);width:60px">2</span><p><b style="color:#fff">Comprar um imóvel</b><br>que tende a gerar aluguel</p></div>
+  <div class="ncard" style="display:flex;gap:34px;align-items:center;padding:22px 36px"><span class="big" style="font-size:72px;color:var(--yel);width:60px">3</span><p><b style="color:#fff">Deixar o crédito</b><br>aplicado</p></div>
+ </div>
+ <p style="margin-top:30px;font-weight:700;color:#fff;font-size:36px">Quem decide é o momento do grupo,<br>não a manchete.</p>
  </div>
 </section>
 
-<section class="s" data-n="5">
- <div class="body">
-  <h2>🧮 Abrindo a conta</h2>
-  <div class="card" style="padding:20px 44px">
-   <div class="row"><span>Carta HS</span><b>R$ 500 mil</b></div>
-   <div class="row"><span>Meia parcela<br><span style="font-size:28px;color:var(--mute)">até contemplar</span></span><b>R$ 1.397,50</b></div>
-   <div class="row"><span>36 meses<br><span style="font-size:28px;color:var(--mute)">até o fim de 2029</span></span><b>R$ 50.310</b></div>
-  </div>
-  <p style="margin-top:44px;font-size:44px;font-weight:700">Com ~R$ 50 mil investidos aos poucos, tu passa <span class="hl">36 assembleias concorrendo</span> a uma carta de R$ 500 mil.</p>
-  <p class="src">Tabela oficial HS, plano de 220 meses. A contemplação depende de sorteio ou lance e dos recursos do grupo.</p>
+<section class="s light" data-n="8">
+ <div class="title" style="font-size:100px;margin-top:30px">Vai esperar<br>o juro ou<br><span class="bar">começar a</span><br><span class="bar">concorrer?</span></div>
+ <p style="margin:50px 0 20px;font-weight:600">Na conversa eu te mostro:</p>
+ <p style="line-height:1.7">→ quanto tu investe por mês<br>→ quanto crédito entra em jogo<br>→ qual saída faz sentido pra ti</p>
+ <div style="background:var(--navy);color:#fff;margin-top:44px;padding:34px 44px;display:flex;align-items:center;justify-content:space-between">
+  <span style="font-size:40px;font-weight:600">Comenta</span>
+  <span class="big" style="font-size:110px;color:var(--yel);letter-spacing:6px;line-height:1">JURO</span>
  </div>
 </section>
-
-<section class="s" data-n="6">
- <div class="body">
-  <h2>💼 E o teu dinheiro enquanto isso?</h2>
-  <div style="display:flex;gap:28px">
-   <div class="card" style="flex:1;padding:36px 34px">
-    <p style="font-size:30px;font-weight:700;color:var(--mute);letter-spacing:1px">ESPERANDO</p>
-    <p style="font-size:36px;margin-top:16px;line-height:1.4">Guarda tudo pra uma entrada grande lá na frente</p>
-   </div>
-   <div class="navycard" style="flex:1;padding:36px 34px">
-    <p style="font-size:30px;font-weight:700;color:var(--yel);letter-spacing:1px">COM A CARTA</p>
-    <p style="font-size:36px;margin-top:16px;line-height:1.4">Teu capital segue aplicado onde já está</p>
-   </div>
-  </div>
-  <p style="margin-top:46px">A carta entra só com o valor que tu já investe por mês.</p>
-  <p style="margin-top:34px;font-size:50px;font-weight:800;line-height:1.25"><span class="hl">O caixa fica inteiro.</span><br><span class="red">A carta constrói o crédito.</span></p>
- </div>
-</section>
-
-<section class="s" data-n="7">
- <div class="body">
-  <h2>🗝️ Método API: contemplou, tu escolhe</h2>
-  <p style="margin-bottom:26px">Três saídas. Nenhuma delas espera o juro:</p>
-  <div style="display:flex;flex-direction:column;gap:24px">
-   <div class="card" style="display:flex;gap:30px;align-items:center;padding:22px 36px"><span style="font-size:64px;font-weight:800;color:var(--gold);width:60px">1</span><p><b>Vender a carta</b> com possível ágio</p></div>
-   <div class="card" style="display:flex;gap:30px;align-items:center;padding:22px 36px"><span style="font-size:64px;font-weight:800;color:var(--gold);width:60px">2</span><p><b>Comprar um imóvel</b> que tende a gerar aluguel</p></div>
-   <div class="card" style="display:flex;gap:30px;align-items:center;padding:22px 36px"><span style="font-size:64px;font-weight:800;color:var(--gold);width:60px">3</span><p><b>Deixar o crédito</b> aplicado</p></div>
-  </div>
-  <p class="hand" style="font-size:50px;margin-top:28px;line-height:1.15;transform:rotate(-2deg)">quem decide é o momento do grupo,<br>não a manchete do jornal.</p>
- </div>
-</section>
-
-<section class="s" data-n="8">
- <div class="body" style="padding-top:40px">
-  <h1 style="font-size:70px">Vai esperar o juro<br><span class="hl">ou começar a concorrer?</span></h1>
-  <p style="margin:36px 0 24px;font-size:38px;color:#555">Na conversa eu te mostro:</p>
-  <ul class="chk">
-   <li><span class="box on">✓</span><span>Quanto tu investe por mês</span></li>
-   <li><span class="box on">✓</span><span>Quanto crédito entra em jogo</span></li>
-   <li><span class="box on">✓</span><span>Qual saída faz mais sentido pra ti</span></li>
-  </ul>
-  <div class="navycard" style="margin-top:26px;text-align:center;padding:28px 44px">
-   <p style="font-size:44px;font-weight:600">Comenta</p>
-   <p style="font-size:92px;font-weight:900;color:var(--yel);letter-spacing:4px;line-height:1.1">JURO</p>
-   <p style="font-size:34px;opacity:.85">que eu te mando a conta no direct</p>
-  </div>
- </div>
-</section>
-</div>
 
 <script>
-const chrome = (n)=>`
- <div class="status"><span>09:24</span><span class="r"><span class="bars"><i style="height:12px"></i><i style="height:18px"></i><i style="height:24px"></i><i style="height:30px"></i></span><span class="bat">87</span></span></div>
- <div class="nav"><span>‹ Notas</span><span class="ic"><span style="font-size:46px">⇪</span><span class="circ">···</span></span></div>
- <div class="date">19 de novembro de 2026 às 09:24</div>`;
-const foot = (n)=>`
- <div class="foot"><span class="tag"><span class="lk">lk</span>@luizkloppenburg</span><span class="pg">${n}/8</span></div>
- <div class="tool"><span>☰</span><span>◎</span><span>Ⓐ</span><span>✎</span></div><div class="home"></div>`;
-document.querySelectorAll('.s').forEach(s=>{const n=s.dataset.n;s.insertAdjacentHTML('afterbegin',chrome(n));s.insertAdjacentHTML('beforeend',foot(n));});
+document.querySelectorAll('.s').forEach(s=>{const n=+s.dataset.n;
+ s.insertAdjacentHTML('afterbegin',`<div class="top"><div class="prog">${Array.from({length:8},(_,i)=>`<i class="${i<n?'on':''}"></i>`).join('')}</div><span style="font-size:26px;font-weight:700;opacity:.6">${String(n).padStart(2,'0')}/08</span></div>`);
+ s.insertAdjacentHTML('beforeend',`<div class="foot"><span class="lk"><b>lk</b><span>@luizkloppenburg<small>Investimentos e Consórcios</small></span></span><span class="swipe">${n<8?'ARRASTA →':'HS ROLANTE'}</span></div>`);});
 </script>
 </body></html>
